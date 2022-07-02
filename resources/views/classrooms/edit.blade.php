@@ -1,0 +1,52 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Update Classrooms') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="p-3 bg-white shadow-md">
+
+                <form method="POST" action="{{ route('classrooms.update', $classe) }}">
+                    @csrf
+                    @method('put')
+        
+                    
+                        @error('libelle')
+                            <span class="p-2 bg-red-300 text-white rounded-sm shadow">{{ $message }}</span>
+                        @enderror
+                        @error('level_id')
+                            <span class="p-2 bg-red-300 text-white rounded-sm shadow">{{ $message }}</span>
+                        @enderror
+                    
+                    <div>
+                        <x-jet-label for="" value="{{ __('Update Libelle') }}" />
+                        <input id="libelle" name="libelle" class="block mt-1 w-full rounded-md borger-gray-300 border-2 p-4" value={{ $classe->libelle }} />
+                    </div>
+                    <div>
+                        <x-jet-label for="" value="{{ __('Update level') }}" />
+
+                        <select name="level_id" class="block mt-1 w-full rounded-md border-gray-300 border-2 p-4" >
+                            <option value=""></option>
+                            @foreach ($levels as $level)
+
+                            <option value="{{ $level->id }}">{{ $level->libelle }}</option>
+                                
+                            @endforeach
+                        </select>
+                        
+                    </div>
+                    <div class="flex items-center justify-end mt-4">
+        
+                        <button class="ml-4 p-2 bg-green-300 rounded-md text-white">
+                          Update Level
+                        </button>
+                    </div>
+                </form>
+            </-card>
+        
+        </div>
+    </div>
+</x-app-layout>
